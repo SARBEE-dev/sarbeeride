@@ -1,0 +1,57 @@
+<!-- rental_record_detail.html -->
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sarbee Rental Services</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Sarbee Rental Services</h1>
+        <div class="row">
+            <div class="col-md-6 offset-md-3 rental-card">
+                <div class="row">
+                    <div class="col-3">
+                        {% if rental_record.image %}
+                            <img src="{{ rental_record.image.url }}" class="img-fluid rounded-circle" alt="Image">
+                        {% else %}
+                            <div class="image-placeholder">Image</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-6">
+                        <h4>{{ rental_record.name }}</h4>
+                        {% if user.is_staff %}
+                        <form method="post">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit" class="btn btn-primary">Add Payment</button>
+
+                     <!--     <a href="{% url 'subtract_payment' rental_record.pk %}" class="btn btn-warning mt-3 mb-3">Subtract Payment</a> -->
+
+                        </form>
+<div class="d-flex mt-2 mb-2">
+<a href="{% url 'add_loan' rental_record.pk %}" class="btn btn-success mr-2">Add Loan</a>
+        <a href="{% url 'add_repayment' rental_record.pk %}" class="btn btn-warning ">Add Loan Repayment</a></div>
+                        {% endif %}
+
+                        <h5>Total Amount: #{{ rental_record.total_amount }}</h5>
+                    </div>
+                    <div class="col-3 text-center">
+                        <h5 style="color:#7dd300">Amount Remaining: #{{ rental_record.amount_remaining }}</h5>
+                        <h5 style="color:red">Current Payment: #{{pay}}</h5>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

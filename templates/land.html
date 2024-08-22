@@ -1,0 +1,62 @@
+<!-- rental_record_detail.html -->
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sarbee Rental Services</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
+</head>
+<body>
+        <div class="container mt-5">
+{% if user.username %}
+            <h2 class="text-center">Welcome <small class="btn btn-info btn-lg">{{user.username|title}}</small> to SARBEE RENTAL SERVICES</h2>
+            {% else %}
+            <h2 class="text-center">Welcome to SARBEE RENTAL SERVICES</h2>
+            {% endif %}
+        <div class="text-center mt-4 mb-3">
+             {% if user.is_authenticated %}
+                <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+            {% else %}
+            <a href="{% url 'signup' %}" class="btn btn-success">Sign Up</a>
+            <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
+            {% endif %}
+        </div>
+    </div>
+
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                {% for rental in rentals %}
+                <div class="rental-card mb-4">
+                    <div class="row align-items-center">
+                        <div class="col-3">
+                            {% if rental.image %}
+                                <img src="{{ rental.image.url }}" class="img-fluid rounded-circle" alt="Image">
+                            {% else %}
+                                <div class="image-placeholder">Image</div>
+                            {% endif %}
+                        </div>
+                        <div class="col-9">
+                            <h4 style="color: #d35400; font-size:45px">{{ rental.name }}</h4>
+                            <a href="{% url 'rental_record_detail' rental.pk %}" class="btn btn-primary btn-lg">Click to see details of Payment</a>
+                            <br/>
+                            <br/>
+                            {% if user.is_staff %}
+                            <p class="h3">{{rental.address}}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+body {
+            background-image: url('image 2.jpg'); /* Replace with a real background image URL */
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+        .rental-card {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .image-placeholder {
+            background-color: grey;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+        }
